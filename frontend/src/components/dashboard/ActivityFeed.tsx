@@ -11,6 +11,7 @@ import {
   Eye,
   Zap,
   RefreshCcw,
+  LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BiasedGroup } from "@/lib/types";
@@ -22,7 +23,7 @@ interface ActivityFeedProps {
 
 interface FeedEvent {
   id: string;
-  icon: React.ElementType;
+  icon: LucideIcon;
   iconColor: string;
   iconBg: string;
   title: string;
