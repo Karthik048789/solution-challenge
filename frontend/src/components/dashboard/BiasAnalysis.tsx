@@ -159,7 +159,7 @@ export default function BiasAnalysis({ groups, onSelectGroup, selectedGroup }: B
                       Sample
                     </p>
                     <p className="text-xs font-bold text-slate-700 dark:text-slate-300">
-                      {group.count.toLocaleString()}
+                      {group.count?.toLocaleString() ?? "N/A"}
                     </p>
                   </div>
                   <div className="text-center p-1.5 rounded-lg bg-slate-50 dark:bg-slate-800/50">
