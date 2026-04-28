@@ -108,7 +108,7 @@ export default function DashboardPage() {
       setError(null);
       const latest = await getReport();
       setReport(latest);
-      setSelectedGroup(latest.top_biased_groups[0] ?? null);
+      setSelectedGroup(latest?.top_biased_groups?.[0] ?? null);
       localStorage.setItem("biasxray_scan_report", JSON.stringify(latest));
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to load report.");
