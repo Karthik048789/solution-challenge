@@ -353,7 +353,7 @@ export default function DashboardPage() {
                         {prettifyGroupLabel(group.group)}
                       </td>
                       <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
-                        {group.count.toLocaleString()}
+                        {group.count?.toLocaleString() ?? "N/A"}
                       </td>
                       <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
                         {(group.approval_rate * 100).toFixed(1)}%
