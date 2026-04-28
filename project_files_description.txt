@@ -1,0 +1,95 @@
+# BiasX-Ray: Project Files Description
+
+This document provides a detailed description of the directory structure and files within the BiasX-Ray project.
+
+---
+
+## 1. Root Directory
+The root contains general project configuration, orchestration files, and startup scripts.
+
+- `.gitignore`: Specifies files and directories that Git should ignore (e.g., node_modules, .venv, keys).
+- `docker-compose.yml`: Defines the multi-container setup for running both the frontend and backend locally with Docker.
+- `README.md`: The main documentation file containing setup instructions, features, and API endpoints.
+- `start_project.bat`: A Windows batch script to automate the installation of dependencies and launch the full-stack application (Backend & Frontend) simultaneously.
+- `project_files_description.txt`: This file, providing an overview of the codebase.
+
+---
+
+## 2. Backend (backend/)
+A FastAPI service handling data processing, model training, AI evaluations, and bias detection logic.
+
+- `requirements.txt`: Python dependencies for the backend.
+- `models/`: Directory where trained machine learning models (XGBoost/RandomForest) are stored after analysis.
+- `app/main.py`: The entry point of the FastAPI application; handles routing and middleware initialization.
+- `app/agents/`: Contains agentic logic for automated auditing (orchestrating different analysis stages).
+- `app/core/`: Configuration (settings, security) and core utility functions.
+- `app/routes/`: API endpoint definitions:
+    - `upload.py`: Handles CSV file uploads.
+    - `scan.py`: Triggers the bias detection scan.
+    - `analyze.py`: Orchestrates a full audit (data hunt, bias scanning, and remediation).
+    - `simulate.py`: Handles "what-if" scenarios for user profile changes.
+    - `explain.py`: Fetches AI-powered explanations for model decisions.
+    - `report.py`: Generates and serves the final audit report.
+- `app/schemas/`: Pydantic models for request/response validation (`upload.py`, `scan.py`, `simulate.py`, `explain.py`, `request.py`, `response.py`).
+- `app/services/`: The implementation logic for backend features:
+    - `fairness_engine.py`: Links backend routes to ML engine fairness metrics.
+    - `gemini_service.py`: Integrates with Google Gemini AI for natural language insights.
+    - `model_trainer.py`: Automates training models on uploaded datasets.
+    - `scan_service.py`: Orchestrates the search for bias across data slices.
+    - `simulate_service.py`: Logic for predicting outcomes on modified user features.
+    - `upload_service.py`: Manages file storage and initial dataset validation.
+    - `explain_service.py`: Coordinates model interpretability and explanations.
+    - `report_service.py`: Logic for compiling audit results into reports.
+    - `shap_engine.py`: Uses SHAP (SHapley Additive exPlanations) for local and global model explanations.
+    - `stats_engine.py`: Handles complex statistical calculations for bias detection.
+    - `target_detector.py`: Automatically identifies the target/outcome column in datasets.
+    - `cache_service.py`: Manages caching for expensive analysis results.
+    - `ml_bridge.py`: Standardizes communication between the FastAPI app and the ML logic.
+    - `vertex_service.py`: Potential integration point for Google Cloud Vertex AI services.
+    - `state.py`: Manages internal application state (e.g., current dataset path).
+
+---
+
+## 3. Frontend (frontend/)
+A Next.js 14 application built with TypeScript, Tailwind CSS, and Framer Motion.
+
+- `package.json`: Node.js dependencies and scripts.
+- `src/app/`: Next.js App Router structure:
+    - `page.tsx`: The landing page overview.
+    - `layout.tsx`: Root layout with common UI elements and providers.
+    - `upload/`: Page for dataset uploading and initial processing.
+    - `dashboard/`: Main bias visualization dashboard (charts, metrics, bias groups).
+    - `simulator/`: Interactive "what-if" tool for testing profile changes.
+- `src/components/`: Modular React components:
+    - `navbar.tsx`: The main navigation component.
+    - `sections/`: High-level landing page sections (`Hero.tsx`, `Features.tsx`, `HowItWorks.tsx`, `Pricing.tsx`, `Testimonials.tsx`, `CTA.tsx`).
+    - `ui/`: Reusable design system components (`Button.tsx`, `Card.tsx`, `GradientOrb.tsx`).
+    - `layout/`: Specialized layout-related components.
+- `src/lib/`: Client-side utilities:
+    - `api.ts`: Typed API client for communicating with the FastAPI backend.
+    - `types.ts`: Shared TypeScript interfaces and types for the frontend.
+- `src/context/`: React context providers for global state management.
+- `AGENTS.md`: Documentation regarding the agentic features and AI capabilities.
+
+---
+
+## 4. ML Engine (ml-engine/)
+The core mathematical and statistical logic for fairness auditing, decoupled from the web framework.
+
+- `bias_detector.py`: Implements scanning algorithms to find groups with significantly different outcomes.
+- `fairness_metrics.py`: Pure functions to calculate Disparate Impact, Statistical Parity Gap, etc.
+- `group_discovery.py`: Logic to automatically identify sensitive columns and intersectional groups.
+- `simulator.py`: Core logic for simulating how input changes affect model predictions.
+
+---
+
+## 5. Datasets (datasets/)
+- `sample_loan_data.csv`: A demonstration dataset (Age, Gender, Income, Approved) used to showcase bias detection features.
+
+---
+
+## 6. Infrastructure (infra/)
+Deployment and containerization configuration.
+
+- `Dockerfile.backend`: Multi-stage Docker build for the FastAPI backend.
+- `Dockerfile.frontend`: Multi-stage Docker build for the Next.js frontend.

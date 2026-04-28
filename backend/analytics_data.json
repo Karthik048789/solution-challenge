@@ -1,0 +1,12 @@
+{
+  "messages": [
+    {
+      "text": "this is an ai generated chat\n",
+      "bias_score": 0.0,
+      "bias_type": "neutral",
+      "timestamp": "2026-04-27T23:35:26.929715",
+      "is_biased": false,
+      "confidence": 1.0
+    }
+  ]
+}
