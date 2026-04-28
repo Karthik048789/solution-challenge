@@ -26,7 +26,7 @@ const SIZES = {
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: keyof typeof VARIANTS;
   size?: keyof typeof SIZES;
-  as?: React.ElementType;
+  as?: any;
 }
 
 export default function Button({
